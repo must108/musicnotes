@@ -2,7 +2,7 @@
 this code is heavily inspired by 'playsound' by Taylor S. Marks, with some minor tweaks here and there:
 https://github.com/TaylorSMarks/playsound
 
-i wouldn't have learned how to use some of these modules without seeing this code.
+i wouldn't have learned how to use some of these modules without seeing his code.
 """
 
 import logging
@@ -16,7 +16,6 @@ from platform import system
 # windows
 from ctypes import create_unicode_buffer, windll, wintypes
 from os import getcwd
-from urllib.parse import quote
 from os.path import abspath, exists
 from urllib.request import pathname2url
 
@@ -29,7 +28,6 @@ from AppKit import NSSound
 from Foundation import NSURL
 
 # python2
-from urllib import quote
 from urllib import pathname2url
 
 log = logging.getLogger(__name__)
@@ -47,6 +45,27 @@ def canonicalizeFilePath(path):
     else:
         return path
     
+def OSXPath(sound, block = True):
+    sound = canonicalizeFilePath(sound)
+
+    if('://' not in sound): 
+        if not sound.startswith('/'):
+            sound = getcwd() + '/' + sound
+        sound = 'file://' + sound
+
+    try:
+        sound.encode('ascii')
+        return sound.replace(' ', '%20')
+    except UnicodeEncodeError:
+        try:
+            from urllib.parse import quote
+        except ImportError:
+            from urllib import quote
+
+        parts = sound.split('://', 1)
+        return parts[0] + '://' + quote(parts[1].encode('utf-8')).replace(' ', '%20')
+            
+    
 def windowsSound(sound, block = True):
     sound = '"' + canonicalizeFilePath(sound) + '"'
     windll.mciSendStringW.argtypes = [wintypes.LPCWSTR, wintypes.LPWSTR, wintypes.UNIT, wintypes.HANDLE]
@@ -63,4 +82,18 @@ def windowsSound(sound, block = True):
             log.error(exceptMessage)
             raise soundException(exceptMessage)
         return buffer.value
+    
+    try:
+        log.debug('Starting')
+        windowsCommand(u'open {}'.format(sound))
+        windowsCommand(u'play {}{}'.format(sound), ' wait' if block else '')
+        log.debug('Returning')
+    finally:
+        try:
+            windowsCommand(u'close {}'.format(sound))
+        except soundException:
+            log.warning(u'Failed to close the file: {}'.format(sound))
+            pass
+
+    
 
