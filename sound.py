@@ -1,9 +1,6 @@
-"""
-this code is heavily inspired by 'playsound' by Taylor S. Marks, with some minor tweaks here and there:
-https://github.com/TaylorSMarks/playsound
-
-i wouldn't have learned how to use some of these modules without seeing his code.
-"""
+'''
+For playing sounds on various systems
+'''
 
 import logging
 log = logging.getLogger(__name__)
@@ -37,6 +34,13 @@ try:
     from urllib.request import pathname2url
 except ImportError:
     from urllib import pathname2url
+
+"""
+this code is heavily inspired by 'playsound' by Taylor S. Marks, with some minor tweaks here and there:
+https://github.com/TaylorSMarks/playsound
+
+i wouldn't have learned how to use some of these modules without seeing his code.
+"""
 
 class soundException(exception):
     pass
@@ -177,26 +181,26 @@ def anotherPython(otherPython, sound, block = True, macOS = False):
 system = system()
 
 if system == 'Windows':
-    playsound = windowsSound
+    soundPlayer = windowsSound
 elif system == 'Darwin':
-    playsound = macSound
+    soundPlayer = macSound
     if sys.version_info[0] > 2:
         try:
             from AppKit import NSSound
         except ImportError:
             log.warning("this library is current running on a python 2 subprocess. run 'pip install PyObjC' for better results.")
-            playsound = lambda sound, block = True: anotherPython('/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python', 
+            soundPlayer = lambda sound, block = True: anotherPython('/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python', 
                                                                   sound, block, macOS = True)
 else:
-    playsound = nixSound
+    soundPlayer = nixSound
     if __name__ != '__main__': # prevent infinite recursion
         try:
             gi.require_version('Gst', '1.0')
         except:
             log.warning("this library is running on another python subprocess. run 'pip install pygobject for better results.")
-            playsound = lambda sound, block = True: anotherPython('/usr/bin/python3', sound, block, macOS = False)
+            soundPlayer = lambda sound, block = True: anotherPython('/usr/bin/python3', sound, block, macOS = False)
 
 del system
 
 if __name__ == '__main__':
-    playsound(argv[1])
+    soundPlayer(argv[1])
