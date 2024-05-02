@@ -12,26 +12,25 @@ def note(note, pitch = 'mid', sharp = False, flat = False, instrument = 'piano')
     if ord(note) not in range(65, 72):
         raise Exception("Note is not valid!")
 
-    if instrument == 'piano':
-        if sharp:
-            play(note, pitch, '#', instrument)
-        elif flat:
-            if note == 'A': # to prevent it trying to play another symbol
-                note = 'G'
-            else:
-                note = chr(ord(note) - 1)
-                
-            play(note, pitch, '#')
+    if sharp:
+        play(note, pitch, '#', instrument)
+    elif flat:
+        if note == 'A': # to prevent it trying to play another symbol
+            note = 'G'
         else:
-            play(note, pitch)
+            note = chr(ord(note) - 1)
+                
+        play(note, pitch, '#', instrument)
+    else:
+        play(note, pitch, '', instrument)
             
 def play(note, pitch, sym = '', instrument = 'piano'): # for drier code
     if pitch == 'low':
-        fp = pkg_resources.resource_filename('musicnotes', 'assets/' + instrument + '/' + 'low' + note + sym + 'piano.mp3')
+        fp = pkg_resources.resource_filename('musicnotes', 'assets/' + instrument + '/' + 'low' + note + sym + instrument + '.mp3')
         soundPlayer(fp, block = True)
     elif pitch == 'mid':
-        fp = pkg_resources.resource_filename('musicnotes', 'assets/' + instrument + '/' + 'mid' + note + sym + 'piano.mp3')
+        fp = pkg_resources.resource_filename('musicnotes', 'assets/' + instrument + '/' + 'mid' + note + sym + instrument + '.mp3')
         soundPlayer(fp, block = True)
     elif pitch == 'high':
-        fp = pkg_resources.resource_filename('musicnotes', 'assets/' + instrument + '/' + 'high' + note + sym + 'piano.mp3')
+        fp = pkg_resources.resource_filename('musicnotes', 'assets/' + instrument + '/' + 'high' + note + sym + instrument + '.mp3')
         soundPlayer(fp, block = True)
