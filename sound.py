@@ -11,6 +11,7 @@ from time import sleep
 from inspect import getsourcefile
 from subprocess import check_call
 from threading import Thread
+from threading import Timer
 from platform import system 
 try:
     from urllib.parse import quote
@@ -23,11 +24,17 @@ from os import getcwd
 from os.path import abspath, exists
 
 # macos
-from Foundation import NSURL
+try:
+    from Foundation import NSURL
+except ImportError:
+    pass
 
 # linux
-import gi 
-from gi.repository import Gst
+try:
+    import gi 
+    from gi.repository import Gst
+except ImportError:
+    pass
 
 # python2
 try:
@@ -42,7 +49,7 @@ https://github.com/TaylorSMarks/playsound
 i wouldn't have learned how to use some of these modules without seeing his code.
 """
 
-class soundException(exception):
+class soundException(Exception):
     pass
 
 # takes in a file path and converts to string on python3
@@ -71,8 +78,8 @@ def OSXPath(sound, block = True):
     
 def windowsSound(sound, block = True):
     sound = '"' + canonicalizeFilePath(sound) + '"'
-    windll.mciSendStringW.argtypes = [wintypes.LPCWSTR, wintypes.LPWSTR, wintypes.UNIT, wintypes.HANDLE]
-    windll.winmm.mciGetErrorStringW.argtypes = [wintypes.DWORD, wintypes.LPWSTR, wintypes.UNIT]
+    windll.winmm.mciSendStringW.argtypes = [wintypes.LPCWSTR, wintypes.LPWSTR, wintypes.UINT, wintypes.HANDLE]
+    windll.winmm.mciGetErrorStringW.argtypes = [wintypes.DWORD, wintypes.LPWSTR, wintypes.UINT]
 
     def windowsCommand(*command):
         buffer = create_unicode_buffer(600)
@@ -89,7 +96,10 @@ def windowsSound(sound, block = True):
     try:
         log.debug('Starting')
         windowsCommand(u'open {}'.format(sound))
-        windowsCommand(u'play {}{}'.format(sound), ' wait' if block else '')
+        if block:
+            windowsCommand(u'play {}{}'.format(sound, ' wait'))
+        else:
+            Thread(target = windowsCommand, args=(u'play {}{}'.format(sound, ''),)).start()
         log.debug('Returning')
     finally:
         try:
@@ -112,7 +122,7 @@ def macSound(sound, block = True):
         raise soundException(u'Cannot find a sound with filename: {}'.format(sound))
     
     for i in range(5):
-        nssound = NSSOUND.alloc().initWithContentsOfURL_byReference_(url, True)
+        nssound = NSSound.alloc().initWithContentsOfURL_byReference_(url, True)
         if nssound:
             break
         else:
@@ -149,6 +159,8 @@ def nixSound(sound, block = True):
                 bus.poll(Gst.MessageType.EOS, Gst.CLOCK_TIME_NONE)
             finally:
                 playbin.set_state(Gst.State.NULL)
+        else:
+            Thread(target = lambda: bus.poll(Gst.MessageType.EOS, Gst.CLOCK_TIME_NONE)).start()
 
         log.debug('Playing finished.')
 

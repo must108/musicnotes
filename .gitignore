@@ -1,0 +1,56 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# c
+*.so
+
+# distro / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# pyinstaller
+*.manifest
+*.spec
+
+# installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# stuff for unit tests
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+
+# translation files
+*.mo
+*.pot
+
+# django
+*.log
+
+# sphinx
+docs/_build/
+
+# pybuilder
+target/
