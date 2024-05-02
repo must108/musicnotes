@@ -5,7 +5,7 @@ with open('README.md', encoding = 'utf-8') as f:
 
 setup (
     name = 'musicnotes',
-    version = '1.0.4',
+    version = '1.0.11',
     description = 'Play music notes in your Python scripts with ease.',
     long_description = long_description,
     long_description_content_type = 'text/markdown',
@@ -29,5 +29,8 @@ setup (
         'Topic :: Multimedia :: Sound/Audio :: Players',
         'Topic :: Multimedia :: Sound/Audio :: Players :: MP3',
     ],
-    packages = ['musicnotes']
+    packages = ['musicnotes'],
+    package_data = {
+        'musicnotes': ['assets/piano/*.mp3'],
+    },
 )

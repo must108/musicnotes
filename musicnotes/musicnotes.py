@@ -1,4 +1,5 @@
-from sound import soundPlayer
+from .sound import soundPlayer
+import pkg_resources
 
 def note(note, pitch = 'mid', sharp = False, flat = False, instrument = 'piano'):
     note.upper()
@@ -26,8 +27,11 @@ def note(note, pitch = 'mid', sharp = False, flat = False, instrument = 'piano')
             
 def play(note, pitch, sym = ''): # for drier code
     if pitch == 'low':
-        soundPlayer('./assets/piano/' + 'low' + note + sym + 'piano.mp3', block = True)
+        fp = pkg_resources.resource_filename('musicnotes', 'assets/piano/' + 'low' + note + sym + 'piano.mp3')
+        soundPlayer(fp, block = True)
     elif pitch == 'mid':
-        soundPlayer('./assets/piano/' + 'mid' + note + sym + 'piano.mp3', block = True)
+        fp = pkg_resources.resource_filename('musicnotes', 'assets/piano/' + 'mid' + note + sym + 'piano.mp3')
+        soundPlayer(fp, block = True)
     elif pitch == 'high':
-        soundPlayer('./assets/piano/' + 'high' + note + sym + 'piano.mp3', block = True)
+        fp = pkg_resources.resource_filename('musicnotes', 'assets/piano/' + 'high' + note + sym + 'piano.mp3')
+        soundPlayer('musicnotes/assets/piano/' + 'high' + note + sym + 'piano.mp3', block = True)
