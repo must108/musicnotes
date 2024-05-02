@@ -14,7 +14,7 @@ def note(note, pitch = 'mid', sharp = False, flat = False, instrument = 'piano')
 
     if instrument == 'piano':
         if sharp:
-            play(note, pitch, '#')
+            play(note, pitch, '#', instrument)
         elif flat:
             if note == 'A': # to prevent it trying to play another symbol
                 note = 'G'
