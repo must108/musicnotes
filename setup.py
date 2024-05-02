@@ -31,9 +31,6 @@ setup (
         'Topic :: Multimedia :: Sound/Audio :: MIDI',
         'Topic :: Multimedia :: Sound/Audio :: Players',
         'Topic :: Multimedia :: Sound/Audio :: Players :: MP3',
-        'Topic :: Multimedia :: Sound/Audio :: Music',
-        'Topic :: Multimedia :: Sound/Audio :: Notes',
-        'Topic :: Multimedia :: Sound/Audio :: Music Notes',
     ],
     py_modules= ['musicnotes']
 )
