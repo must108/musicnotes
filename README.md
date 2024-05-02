@@ -46,7 +46,7 @@ note(note, pitch, sharp, flat, instrument)
 
 `sharp`: Set to `False` by default. Set to `True` if you want to sharp the note.
 
-`flat`: Set to `False by default. Set to `True` if you want to flat the note.
+`flat`: Set to `False` by default. Set to `True` if you want to flat the note.
 
 `instrument`: Set to `piano` by default. Currently only supports `piano`, with plans to add more instruments in the future.
 
