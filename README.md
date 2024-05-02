@@ -2,6 +2,16 @@
 
 *Play music notes in your Python scripts with ease.*
 
+# Installation
+
+Install with pip:
+
+```
+pip install musicnotes
+```
+
+You can also install manually from the GitHub repository linked [here](https://github.com/must108/musicnotes).
+
 # Issues
 
 Anyone wishing to contribute to this project can focus on the following issues.

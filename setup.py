@@ -1,9 +1,20 @@
 from setuptools import setup
+from codecs import open
+from inspect import getsource
+from os.path import abspath, dirname, join
+
+here = abspath(dirname(getsource(lambda: 0)))
+
+with open(join(here, 'README.md'), encoding = 'utf-8') as f:
+    desc = f.read()
 
 setup (
     name = 'musicnotes',
-    version = '1.0',
+    version = '1.0.2',
     description = 'Play music notes in your Python scripts with ease.',
+    long_description = desc,
+    long_description_content_type = 'text/markdown',
+    url = 'https://github.com/must108/musicnotes',
     author = 'Mustaeen Ahmed',
     author_email = 'contact@mustaeen.dev',
     license = 'MIT',
