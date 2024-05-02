@@ -25,13 +25,13 @@ def note(note, pitch = 'mid', sharp = False, flat = False, instrument = 'piano')
         else:
             play(note, pitch)
             
-def play(note, pitch, sym = ''): # for drier code
+def play(note, pitch, sym = '', instrument = 'piano'): # for drier code
     if pitch == 'low':
-        fp = pkg_resources.resource_filename('musicnotes', 'assets/piano/' + 'low' + note + sym + 'piano.mp3')
+        fp = pkg_resources.resource_filename('musicnotes', 'assets/' + instrument + '/' + 'low' + note + sym + 'piano.mp3')
         soundPlayer(fp, block = True)
     elif pitch == 'mid':
-        fp = pkg_resources.resource_filename('musicnotes', 'assets/piano/' + 'mid' + note + sym + 'piano.mp3')
+        fp = pkg_resources.resource_filename('musicnotes', 'assets/' + instrument + '/' + 'mid' + note + sym + 'piano.mp3')
         soundPlayer(fp, block = True)
     elif pitch == 'high':
-        fp = pkg_resources.resource_filename('musicnotes', 'assets/piano/' + 'high' + note + sym + 'piano.mp3')
-        soundPlayer('musicnotes/assets/piano/' + 'high' + note + sym + 'piano.mp3', block = True)
+        fp = pkg_resources.resource_filename('musicnotes', 'assets/' + instrument + '/' + 'high' + note + sym + 'piano.mp3')
+        soundPlayer(fp, block = True)
