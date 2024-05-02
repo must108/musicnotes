@@ -5,7 +5,7 @@ with open('README.md', encoding = 'utf-8') as f:
 
 setup (
     name = 'musicnotes',
-    version = '1.0.11',
+    version = '1.0.12',
     description = 'Play music notes in your Python scripts with ease.',
     long_description = long_description,
     long_description_content_type = 'text/markdown',
