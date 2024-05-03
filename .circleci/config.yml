@@ -21,7 +21,6 @@ jobs:
               gstreamer1.0-plugins-ugly \
               gstreamer1.0-plugins-bad \
               gstreamer1.0-libav \
-            && rm -rf /var/lib/apt/lists/*
       - run:
           name: Install packages
           command: pip install pygobject PyObjC
