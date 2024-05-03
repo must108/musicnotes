@@ -9,18 +9,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Fix apt lists directory permissions
-          command: |
-            sudo mkdir -p /var/lib/apt/lists/partial
-            sudo chown -R _apt /var/lib/apt/lists
-            sudo chmod 755 /var/lib/apt/lists
-      - run:
-          name: Install system dependencies
-          command: |
-            sudo apt-get update && apt-get install -y \
-              libcairo2-dev \
-              pkg-config \
-      - run:
           name: Install packages
           command: pip install pygobject PyObjC
       - run:
