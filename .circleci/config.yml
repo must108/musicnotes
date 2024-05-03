@@ -5,7 +5,7 @@ jobs:
   test-python:
     # Install dependencies and run tests
     docker:
-      - image: cimg/python:3.8-windows
+      - image: cimg/python:3.8-node
     steps:
       - checkout
       - run:
@@ -14,7 +14,7 @@ jobs:
   build-package:
     # build python package
     docker:
-      - image: cimg/python:3.8-windows
+      - image: cimg/python:3.8-node
     steps:
       - checkout
       - run:
@@ -26,7 +26,7 @@ jobs:
           destination: ~/artifacts
   deploy:
     docker:
-      - image: circleci/windows@2.2.0
+      - image: cimg/base:stable
     steps:
       - run:
           name: deploy
