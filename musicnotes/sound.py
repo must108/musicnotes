@@ -172,12 +172,16 @@ def anotherPython(otherPython, sound, block = True, macOS = False):
     sound = canonicalizeFilePath(sound)
 
     class PropogatingThread(Thread):
-        def run(self):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
             self.exc = None
-        try:
-            self.ret = self._target(*self._args, **self._kwargs)
-        except BaseException as e:
-            self.exc = e
+            self.ret = FileNotFoundError
+
+        def run(self):
+            try:
+                self.ret = self._target(*self._args, **self._kwargs)
+            except BaseException as e:
+                self.exc = e
         
         def join(self, timeout = None):
             super().join(timeout)
