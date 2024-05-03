@@ -9,9 +9,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install packages
-          command: pip install pygobject PyObjC
-      - run:
           name: Run tests
           command: python -m unittest discover tests/ '*_test.py' -v || ((($? == 5)) && echo 'Did not find any tests to run.')
   build-package:
