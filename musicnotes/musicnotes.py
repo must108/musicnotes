@@ -11,6 +11,9 @@ def note(note, pitch = 'mid', sharp = False, flat = False, instrument = 'piano')
 
     if ord(note) not in range(65, 72):
         raise Exception("Note is not valid!")
+    
+    if instrument != 'piano' and instrument != 'guitar':
+        raise Exception("Instrument is not valid!")
 
     if sharp:
         play(note, pitch, '#', instrument)
