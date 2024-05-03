@@ -1,5 +1,3 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:python:.,file:setup.py:.
 version: 2.1
 orbs:
   python: circleci/python@2
@@ -14,9 +12,7 @@ jobs:
           pkg-manager: pip-dist
       - run:
           name: Run tests
-          command: pytest --junitxml=junit.xml || ((($? == 5)) && echo 'Did not find any tests to run.')
-      - store_test_results:
-          path: junit.xml
+          command: python -m unittest discover tests/ '*_test.py' -v || ((($? == 5)) && echo 'Did not find any tests to run.')
   build-package:
     # build python package
     docker:
@@ -31,11 +27,9 @@ jobs:
           path: dist
           destination: ~/artifacts
   deploy:
-    # This is an example deploy job, not actually used by the workflow
     docker:
       - image: cimg/base:stable
     steps:
-      # Replace this with steps to deploy to users
       - run:
           name: deploy
           command: '#e.g. ./deploy.sh'
