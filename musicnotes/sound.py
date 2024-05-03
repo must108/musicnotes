@@ -19,7 +19,11 @@ except ImportError:
     from urllib import quote
 
 # windows
-from ctypes import create_unicode_buffer, windll, wintypes
+from ctypes import create_unicode_buffer, wintypes
+try:
+    from ctypes import windll
+except ImportError:
+    pass
 from os import getcwd
 from os.path import abspath, exists
 
