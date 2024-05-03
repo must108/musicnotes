@@ -192,7 +192,7 @@ def anotherPython(otherPython, sound, block = True, macOS = False):
     if not exists(abspath(sound)):
         raise soundException(u'Cannot find a sound with filename: {}'.format(sound))
     
-    soundPath = abspath(getsoundfile(lambda: 0))
+    soundPath = abspath(getsourcefile(lambda: 0))
     t = PropogatingThread(target = lambda: check_call([otherPython, soundPath, OSXPath(sound) if macOS else sound]))
     t.start()
     if block:
