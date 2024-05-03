@@ -8,9 +8,9 @@ jobs:
       - image: cimg/python:3.8-node
     steps:
       - checkout
-      - python/install-packages:
-          pkg-manager: pip-dist
-            - pygobject
+      - run :
+          name: Install packages
+          command: pip install pygobject PyObjC
       - run:
           name: Run tests
           command: python -m unittest discover tests/ '*_test.py' -v || ((($? == 5)) && echo 'Did not find any tests to run.')
