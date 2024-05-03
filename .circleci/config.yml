@@ -9,7 +9,9 @@ jobs:
     steps:
       - checkout
       - python/install-packages:
-          pkg-manager: pip-dist
+          pkg-manager: pip-
+          packages:
+            - pygobject
       - run:
           name: Run tests
           command: python -m unittest discover tests/ '*_test.py' -v || ((($? == 5)) && echo 'Did not find any tests to run.')
