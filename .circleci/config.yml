@@ -12,7 +12,7 @@ jobs:
           name: Fix apt lists directory permissions
           command: |
             sudo mkdir -p /var/lib/apt/lists/partial
-            sudo chown -R _apt:_apt /var/lib/apt/lists
+            sudo chown -R _apt /var/lib/apt/lists
             sudo chmod 755 /var/lib/apt/lists
       - run:
           name: Install system dependencies
