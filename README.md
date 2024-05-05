@@ -42,7 +42,7 @@ note(note, pitch, sharp, flat, instrument)
 
 `note`: Takes in a letter, from A-G, and plays the corresponding note.
 
-`pitch`: Currently, three 'pitches' are supported. `low`, `mid`, and `high`. This is due to the fact that the only instrument supported is a 36-key piano. Set to `mid` by default.
+`pitch`: Currently, three 'pitches' are supported. `low`, `mid`, and `high`. This is due to the fact that the only instrument supported is a 36-key piano, as well as about 36 notes on a guitar. Set to `mid` by default.
 
 `sharp`: Set to `False` by default. Set to `True` if you want to sharp the note. Remember that B# and E# do not exist.
 
