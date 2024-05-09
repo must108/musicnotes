@@ -193,7 +193,8 @@ def anotherPython(otherPython, sound, block = True, macOS = False):
         raise soundException(u'Cannot find a sound with filename: {}'.format(sound))
     
     soundPath = abspath(getsourcefile(lambda: 0))
-    t = PropogatingThread(target = lambda: check_call([otherPython, soundPath, OSXPath(sound) if macOS else sound]))
+    t = PropogatingThread(target = lambda: check_call([otherPython, 
+                                                       soundPath, OSXPath(sound) if macOS else sound]))
     t.start()
     if block:
         t.join()
@@ -209,8 +210,9 @@ elif system == 'Darwin':
             from AppKit import NSSound
         except ImportError:
             log.warning("this library is current running on a python 2 subprocess. run 'pip install PyObjC' for better results.")
-            soundPlayer = lambda sound, block = True: anotherPython('/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python', 
-                                                                  sound, block, macOS = True)
+            soundPlayer = lambda sound, block = True: anotherPython(
+                '/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python', 
+                                                            sound, block, macOS = True)
 else:
     soundPlayer = nixSound
     if __name__ != '__main__': # prevent infinite recursion
@@ -218,7 +220,8 @@ else:
             gi.require_version('Gst', '1.0')
         except:
             log.warning("this library is running on another python subprocess. run 'pip install pygobject for better results.")
-            soundPlayer = lambda sound, block = True: anotherPython('/usr/bin/python3', sound, block, macOS = False)
+            soundPlayer = lambda sound, block = True: anotherPython(
+                '/usr/bin/python3', sound, block, macOS = False)
 
 del system
 
