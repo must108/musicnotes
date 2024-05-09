@@ -47,7 +47,8 @@ except ImportError:
     from urllib import pathname2url
 
 """
-this code is heavily inspired by 'playsound' by Taylor S. Marks, with some minor tweaks here and there:
+this code is heavily inspired by 'playsound' by Taylor S. Marks, 
+with some minor tweaks here and there:
 https://github.com/TaylorSMarks/playsound
 
 i wouldn't have learned how to use some of these modules without seeing his code.
@@ -77,13 +78,16 @@ def OSXPath(sound, block = True):
         return sound.replace(' ', '%20')
     except UnicodeEncodeError:
         parts = sound.split('://', 1)
-        return parts[0] + '://' + quote(parts[1].encode('utf-8')).replace(' ', '%20')
+        return parts[0] + '://' + quote(
+            parts[1].encode('utf-8')).replace(' ', '%20')
             
     
 def windowsSound(sound, block = True):
     sound = '"' + canonicalizeFilePath(sound) + '"'
-    windll.winmm.mciSendStringW.argtypes = [wintypes.LPCWSTR, wintypes.LPWSTR, wintypes.UINT, wintypes.HANDLE]
-    windll.winmm.mciGetErrorStringW.argtypes = [wintypes.DWORD, wintypes.LPWSTR, wintypes.UINT]
+    windll.winmm.mciSendStringW.argtypes = [
+        wintypes.LPCWSTR, wintypes.LPWSTR, wintypes.UINT, wintypes.HANDLE]
+    windll.winmm.mciGetErrorStringW.argtypes = [
+        wintypes.DWORD, wintypes.LPWSTR, wintypes.UINT]
 
     def windowsCommand(*command):
         buffer = create_unicode_buffer(600)
@@ -92,7 +96,8 @@ def windowsSound(sound, block = True):
         if error:
             errorBuff = create_unicode_buffer(600)
             windll.winmm.mciGetErrorStringW(error, errorBuff, 599)
-            exceptMessage = ('\nError:' + str(error) + ' due to command:\n' + command + '\n ' + errorBuff.value)
+            exceptMessage = ('\nError:' + str(error) + ' due to command:\n' 
+                             + command + '\n ' + errorBuff.value)
             log.error(exceptMessage)
             raise soundException(exceptMessage)
         return buffer.value
@@ -103,7 +108,8 @@ def windowsSound(sound, block = True):
         if block:
             windowsCommand(u'play {}{}'.format(sound, ' wait'))
         else:
-            Thread(target = windowsCommand, args=(u'play {}{}'.format(sound, ''),)).start()
+            Thread(target = windowsCommand, args=(
+                u'play {}{}'.format(sound, ''),)).start()
         log.debug('Returning')
     finally:
         try:
@@ -116,14 +122,18 @@ def macSound(sound, block = True):
     try:
         from AppKit import NSSound
     except ImportError:
-        log.warning("could not find a copy of AppKit. macOS's system copy will be used.")
-        sys.path.append('System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/PyObjC')
+        log.warning("could not find a copy of AppKit." 
+                    + "macOS's system copy will be used.")
+        sys.path.append(
+            'System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/' 
+            + 'python/PyObjC')
         from AppKit import NSSound
 
     sound = OSXPath(sound)
     url = NSURL.URLWithString_(sound)
     if not url:
-        raise soundException(u'Cannot find a sound with filename: {}'.format(sound))
+        raise soundException(
+            u'Cannot find a sound with filename: {}'.format(sound))
     
     for i in range(5):
         nssound = NSSound.alloc().initWithContentsOfURL_byReference_(url, True)
@@ -164,7 +174,8 @@ def nixSound(sound, block = True):
             finally:
                 playbin.set_state(Gst.State.NULL)
         else:
-            Thread(target = lambda: bus.poll(Gst.MessageType.EOS, Gst.CLOCK_TIME_NONE)).start()
+            Thread(target = lambda: bus.poll(Gst.MessageType.EOS, 
+                                    Gst.CLOCK_TIME_NONE)).start()
 
         log.debug('Playing finished.')
 
@@ -194,7 +205,7 @@ def anotherPython(otherPython, sound, block = True, macOS = False):
     
     soundPath = abspath(getsourcefile(lambda: 0))
     t = PropogatingThread(target = lambda: check_call([otherPython, 
-                                                       soundPath, OSXPath(sound) if macOS else sound]))
+                            soundPath, OSXPath(sound) if macOS else sound]))
     t.start()
     if block:
         t.join()
@@ -209,7 +220,8 @@ elif system == 'Darwin':
         try:
             from AppKit import NSSound
         except ImportError:
-            log.warning("this library is current running on a python 2 subprocess. run 'pip install PyObjC' for better results.")
+            log.warning("this library is current running on a python 2 " 
+                        + "subprocess. run 'pip install PyObjC' for better results.")
             soundPlayer = lambda sound, block = True: anotherPython(
                 '/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python', 
                                                             sound, block, macOS = True)
@@ -219,7 +231,8 @@ else:
         try:
             gi.require_version('Gst', '1.0')
         except:
-            log.warning("this library is running on another python subprocess. run 'pip install pygobject for better results.")
+            log.warning("this library is running on another python " 
+                        + "subprocess. run 'pip install pygobject for better results.")
             soundPlayer = lambda sound, block = True: anotherPython(
                 '/usr/bin/python3', sound, block, macOS = False)
 
