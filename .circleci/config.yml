@@ -12,7 +12,7 @@ jobs:
           name: Install system dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y python-gst-1.0 python3-gst-1.0 python3-gi
+            sudo apt-get install -y gstreamer-1.0 python3-gi
       - run:
           name: Run tests
           command: python -m unittest discover tests/ '*_test.py' -v || ((($? == 5)) && echo 'Did not find any tests to run.')
