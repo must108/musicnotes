@@ -222,6 +222,7 @@ elif system == 'Darwin':
         except ImportError:
             log.warning("this library is current running on a python 2 " 
                         + "subprocess. run 'pip install PyObjC' for better results.")
+            import PyObjC
             soundPlayer = lambda sound, block = True: anotherPython(
                 '/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python', 
                                                             sound, block, macOS = True)
@@ -233,6 +234,7 @@ else:
         except:
             log.warning("this library is running on another python " 
                         + "subprocess. run 'pip install pygobject for better results.")
+            import pygobject
             soundPlayer = lambda sound, block = True: anotherPython(
                 '/usr/bin/python3', sound, block, macOS = False)
 
