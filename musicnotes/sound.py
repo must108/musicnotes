@@ -230,7 +230,7 @@ else:
         except:
             log.warning("this library is running on another python " 
                         + "subprocess. run 'pip install pygobject for better results.")
-            import pygobject
+            # import pygobject
             soundPlayer = lambda sound, block = True: anotherPython(
                 '/usr/bin/python3', sound, block, macOS = False)
 
