@@ -33,13 +33,6 @@ try:
 except ImportError:
     pass
 
-# linux
-try:
-    import gi 
-    from gi.repository import Gst
-except ImportError:
-    pass
-
 # python2
 try:
     from urllib.request import pathname2url
@@ -148,6 +141,7 @@ def macSound(sound, block = True):
 
 def nixSound(sound, block = True):
     sound = canonicalizeFilePath(sound)
+    import gi 
     gi.require_version('Gst', '1.0')
     from gi.repository import Gst
 
@@ -222,6 +216,7 @@ elif system == 'Darwin':
         except ImportError:
             log.warning("this library is current running on a python 2 " 
                         + "subprocess. run 'pip install PyObjC' for better results.")
+            import PyObjC
             soundPlayer = lambda sound, block = True: anotherPython(
                 '/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python', 
                                                             sound, block, macOS = True)
@@ -229,10 +224,13 @@ else:
     soundPlayer = nixSound
     if __name__ != '__main__': # prevent infinite recursion
         try:
+            import gi 
             gi.require_version('Gst', '1.0')
+            from gi.repository import Gst
         except:
             log.warning("this library is running on another python " 
                         + "subprocess. run 'pip install pygobject for better results.")
+            # import pygobject
             soundPlayer = lambda sound, block = True: anotherPython(
                 '/usr/bin/python3', sound, block, macOS = False)
 

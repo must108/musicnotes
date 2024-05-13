@@ -3,36 +3,26 @@ from musicnotes import note
 
 class testnotes(unittest.TestCase):
     def test_piano_notes(self):
-        for name in ['A', 'B', 'C', 'D', 'E', 'F', 'G']:
-            self.assertIsNone(note(name, pitch = 'low', instrument = 'piano'))
-            self.assertIsNone(note(name, pitch = 'mid', instrument = 'piano'))
-            self.assertIsNone(note(name, pitch = 'high', instrument = 'piano'))
-
-        for name in ['A', 'B', 'D', 'E', 'G']:
-            self.assertIsNone(note(name, pitch = 'low', sharp = False, flat = True, instrument = 'piano'))
-            self.assertIsNone(note(name, pitch = 'mid', sharp = False, flat = True, instrument = 'piano'))
-            self.assertIsNone(note(name, pitch = 'high', sharp = False, flat = True, instrument = 'piano'))
-
-        for name in ['A', 'C', 'D', 'F', 'G']:
-            self.assertIsNone(note(name, pitch = 'low', sharp = True, flat = False, instrument = 'piano'))
-            self.assertIsNone(note(name, pitch = 'mid', sharp = True, flat = False, instrument = 'piano'))
-            self.assertIsNone(note(name, pitch = 'high', sharp = True, flat = False, instrument = 'piano'))
+        self.assert_notes_return_none('piano')
 
     def test_guitar_notes(self):
+        self.assert_notes_return_none('guitar')
+
+    def assert_notes_return_none(self, instrument):
         for name in ['A', 'B', 'C', 'D', 'E', 'F', 'G']:
-            self.assertIsNone(note(name, pitch = 'low', instrument = 'guitar'))
-            self.assertIsNone(note(name, pitch = 'mid', instrument = 'guitar'))
-            self.assertIsNone(note(name, pitch = 'high', instrument = 'guitar'))
+            self.assertIsNone(note(name, pitch = 'low', instrument = instrument))
+            self.assertIsNone(note(name, pitch = 'mid', instrument = instrument))
+            self.assertIsNone(note(name, pitch = 'high', instrument = instrument))
 
         for name in ['A', 'B', 'D', 'E', 'G']:
-            self.assertIsNone(note(name, pitch = 'low', sharp = False, flat = True, instrument = 'guitar'))
-            self.assertIsNone(note(name, pitch = 'mid', sharp = False, flat = True, instrument = 'guitar'))
-            self.assertIsNone(note(name, pitch = 'high', sharp = False, flat = True, instrument = 'guitar'))
+            self.assertIsNone(note(name, pitch = 'low', sharp = False, flat = True, instrument = instrument))
+            self.assertIsNone(note(name, pitch = 'mid', sharp = False, flat = True, instrument = instrument))
+            self.assertIsNone(note(name, pitch = 'high', sharp = False, flat = True, instrument = instrument))
 
         for name in ['A', 'C', 'D', 'F', 'G']:
-            self.assertIsNone(note(name, pitch = 'low', sharp = True, flat = False, instrument = 'guitar'))
-            self.assertIsNone(note(name, pitch = 'mid', sharp = True, flat = False, instrument = 'guitar'))
-            self.assertIsNone(note(name, pitch = 'high', sharp = True, flat = False, instrument = 'guitar'))
+            self.assertIsNone(note(name, pitch = 'low', sharp = True, flat = False, instrument = instrument))
+            self.assertIsNone(note(name, pitch = 'mid', sharp = True, flat = False, instrument = instrument))
+            self.assertIsNone(note(name, pitch = 'high', sharp = True, flat = False, instrument = instrument))
 
 if __name__ == '__main__':
     unittest.main()
