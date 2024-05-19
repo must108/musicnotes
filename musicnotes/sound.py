@@ -228,11 +228,12 @@ else:
             gi.require_version('Gst', '1.0')
             from gi.repository import Gst
         except:
-            log.warning("this library is running on another python " 
-                        + "subprocess. run 'pip install pygobject for better results.")
-            # import pygobject
-            soundPlayer = lambda sound, block = True: anotherPython(
-                '/usr/bin/python3', sound, block, macOS = False)
+            # log.warning("this library is running on another python " 
+            #             + "subprocess. run 'pip install pygobject for better results.")
+            # # import pygobject
+            # soundPlayer = lambda sound, block = True: anotherPython(
+            #     '/usr/bin/python3', sound, block, macOS = False)
+            pass
 
 del system
 
