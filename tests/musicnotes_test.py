@@ -1,15 +1,14 @@
 import unittest
 from musicnotes import note
 from unittest.mock import patch
-from musicnotes.sound import soundPlayer
 
 class testnotes(unittest.TestCase):
-    @patch.object(soundPlayer, 'play_sound')
+    @patch.object(note)
     def test_piano_notes(self, mock_sound):
         mock_sound.return_value = None
         self.assert_notes_return_none('piano', mock_sound)
 
-    @patch.object(soundPlayer, 'play_sound')
+    @patch.object(note)
     def test_guitar_notes(self, mock_sound):
         mock_sound.return_value = None
         self.assert_notes_return_none('guitar', mock_sound)
