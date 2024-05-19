@@ -1,4 +1,4 @@
-from .sound import soundPlayer
+from musicnotes.sound import soundPlayer
 import pkg_resources
 
 def note(note, pitch = 'mid', sharp = False, flat = False, 

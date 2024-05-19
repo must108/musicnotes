@@ -1,7 +1,7 @@
 import unittest
 from musicnotes import note
 from unittest.mock import patch, MagicMock
-from sound import SoundPlayer
+from musicnotes.sound import SoundPlayer
 
 class testnotes(unittest.TestCase):
     @patch.object(SoundPlayer, 'play_sound')
