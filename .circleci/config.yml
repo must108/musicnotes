@@ -21,11 +21,19 @@ jobs:
             gstreamer1.0-plugins-bad \
             python3-gi \
             libgirepository1.0-dev \
-            libcairo2-dev
+            libcairo2-dev \
+            alsa-utils \
+            pulseaudio
       - run:
           name: Install Python dependencies
           command: |
             pip install pygobject
+      - run:
+          name: Setup virtual sound device
+          command: |
+            sudo modprobe snd-dummy
+            cat /proc/asound/cards
+            cat /proc/asound/modules
       - run:
           name: Run tests
           command: python -m unittest discover tests/ '*_test.py' -v || ((($? == 5)) && echo 'Did not find any tests to run.')
