@@ -6,13 +6,22 @@ jobs:
     # Install dependencies and run tests
     docker:
       - image: cimg/python:3.8-node
+    environment:
+      GST_PLUGIN_SCANNER: "/usr/lib/x86_64-linux-gnu/gstreamer1.0/gst-plugin-scanner"
     steps:
       - checkout
       - run:
           name: Install system dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y gstreamer-1.0 python3-gi libgirepository1.0-dev libcairo2-dev
+            sudo apt-get install -y \
+            gstreamer-1.0 \
+            gstreamer1.0-plugins-base \
+            gstreamer1.0-plugins-good \
+            gstreamer1.0-plugins-bad \
+            python3-gi \
+            libgirepository1.0-dev \
+            libcairo2-dev
       - run:
           name: Install Python dependencies
           command: |
