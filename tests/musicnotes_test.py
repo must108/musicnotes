@@ -1,14 +1,20 @@
 import unittest
 from musicnotes import note
+from unittest.mock import patch, MagicMock
+from sound import SoundPlayer
 
 class testnotes(unittest.TestCase):
-    def test_piano_notes(self):
-        self.assert_notes_return_none('piano')
+    @patch.object(SoundPlayer, 'play_sound')
+    def test_piano_notes(self, mock_sound):
+        mock_sound.return_value = None
+        self.assert_notes_return_none('piano', mock_sound)
 
-    def test_guitar_notes(self):
-        self.assert_notes_return_none('guitar')
+    @patch.object(SoundPlayer, 'play_sound')
+    def test_guitar_notes(self, mock_sound):
+        mock_sound.return_value = None
+        self.assert_notes_return_none('guitar', mock_sound)
 
-    def assert_notes_return_none(self, instrument):
+    def assert_notes_return_none(self, instrument, mock_sound):
         for name in ['A', 'B', 'C', 'D', 'E', 'F', 'G']:
             self.assertIsNone(note(name, pitch = 'low', instrument = instrument))
             self.assertIsNone(note(name, pitch = 'mid', instrument = instrument))

@@ -29,17 +29,6 @@ jobs:
           command: |
             pip install pygobject
       - run:
-          name: Update and install kernel headers
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y linux-headers-$(uname -r)
-      - run:
-          name: Setup virtual sound device
-          command: |
-            sudo modprobe snd-dummy
-            cat /proc/asound/cards
-            cat /proc/asound/modules
-      - run:
           name: Run tests
           command: python -m unittest discover tests/ '*_test.py' -v || ((($? == 5)) && echo 'Did not find any tests to run.')
   build-package:
