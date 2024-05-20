@@ -5,11 +5,11 @@ from unittest.mock import patch
 class testnotes(unittest.TestCase):
     @patch('musicnotes.note')
     def test_piano_notes(self, mock_note):
-        self.assert_notes_work('piano')
+        self.assert_notes_work('piano', mock_note)
 
     @patch('musicnotes.note')
     def test_guitar_notes(self, mock_note):
-        self.assert_notes_work('guitar')
+        self.assert_notes_work('guitar', mock_note)
 
     def assert_notes_work(self, instrument, mock_note):
         for name in ['A', 'B', 'C', 'D', 'E', 'F', 'G']:
