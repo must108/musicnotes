@@ -5,12 +5,13 @@ from unittest.mock import patch
 class testnotes(unittest.TestCase):
     @patch('musicnotes.note')
     def test_piano_notes(self, mock_note):
-        self.assert_notes_return_none('piano', mock_note)
+        self.assert_notes_return_correctly('piano', mock_note)
 
     @patch('musicnotes.note')
     def test_guitar_notes(self, mock_note):
-        self.assert_notes_return_none('guitar', mock_note)
-        def assert_notes_called_correctly(self, instrument, mock_note):
+        self.assert_notes_return_correctly('guitar', mock_note)
+
+    def assert_notes_called_correctly(self, instrument, mock_note):
             note_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
             # Test without sharp or flat
