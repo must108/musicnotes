@@ -3,9 +3,11 @@ from musicnotes import note
 from unittest.mock import patch
 
 class testnotes(unittest.TestCase):
+    @patch('musicnotes.note')
     def test_piano_notes(self, mock_note):
         self.assert_notes_work('piano')
 
+    @patch('musicnotes.note')
     def test_guitar_notes(self, mock_note):
         self.assert_notes_work('guitar')
 
