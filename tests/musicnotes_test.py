@@ -3,12 +3,12 @@ from musicnotes import note
 from unittest.mock import patch
 
 class testnotes(unittest.TestCase):
-    @patch('note')
+    @patch(note, 'note')
     def test_piano_notes(self, mock_sound):
         mock_sound.return_value = None
         self.assert_notes_return_none('piano', mock_sound)
 
-    @patch('note')
+    @patch(note, 'note')
     def test_guitar_notes(self, mock_sound):
         mock_sound.return_value = None
         self.assert_notes_return_none('guitar', mock_sound)
