@@ -46,6 +46,7 @@ jobs:
           gstreamer1.0-pulseaudio \
           gstreamer1.0-qt5 \
           gstreamer1.0-opencv
+          python3-gst-1.0
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
