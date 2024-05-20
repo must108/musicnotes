@@ -3,13 +3,13 @@ from musicnotes import note
 # from unittest.mock import patch
 
 class testnotes(unittest.TestCase):
-    def test_piano_notes(self, mock_note):
-        self.assert_notes_work('piano', mock_note)
+    def test_piano_notes(self):
+        self.assert_notes_work('piano')
 
-    def test_guitar_notes(self, mock_note):
-        self.assert_notes_work('guitar', mock_note)
+    def test_guitar_notes(self):
+        self.assert_notes_work('guitar')
 
-    def assert_notes_work(self, instrument, mock_sound):
+    def assert_notes_work(self, instrument):
         for name in ['A', 'B', 'C', 'D', 'E', 'F', 'G']:
             self.assertIsNone(note(name, pitch = 'low', instrument = instrument))
             self.assertIsNone(note(name, pitch = 'mid', instrument = instrument))
