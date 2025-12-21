@@ -27,14 +27,22 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
+            build-essential \
             libgirepository1.0-dev \
-            gcc \
             libcairo2-dev \
             pkg-config \
             python3-dev \
             gir1.2-gtk-3.0 \
             libglib2.0-dev \
-            gobject-introspection
+            libffi-dev \
+            gobject-introspection \
+            gir1.2-glib-2.0 \
+            gir1.2-gst-plugins-base-1.0 \
+            gir1.2-gstreamer-1.0 \
+            gstreamer1.0-plugins-base \
+            gstreamer1.0-plugins-good \
+            gstreamer1.0-plugins-bad \
+            gstreamer1.0-tools
 
       - name: Install Python dependencies
         run: |
