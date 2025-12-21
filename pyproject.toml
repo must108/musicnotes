@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "musicnotes"
-version = "1.12"
+version = "1.14"
 description = "Play music notes in your Python scripts with ease."
 readme = "README.md"
 authors = [{ name = "Mustaeen Ahmed", email = "contact@mustaeen.dev" }]
