@@ -32,7 +32,9 @@ jobs:
             libcairo2-dev \
             pkg-config \
             python3-dev \
-            gir1.2-gtk-3.0
+            gir1.2-gtk-3.0 \
+            libglib2.0-dev \
+            gobject-introspection
 
       - name: Install Python dependencies
         run: |
